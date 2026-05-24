@@ -64,7 +64,7 @@ export function PresetPicker({
                 >
                   <Icon size={15} />
                 </div>
-                <ArrowUpRight size={15} className="text-mute group-hover:text-accent" style={{ transition: "all 200ms" }} />
+                <ArrowUpRight size={15} data-arrow className="text-mute" style={{ transition: "transform 220ms cubic-bezier(.2,.7,.2,1), color 200ms" }} />
               </div>
               <h3 className="display-md" style={{ fontSize: 15, fontWeight: 600, lineHeight: 1.25 }}>
                 {p.title}

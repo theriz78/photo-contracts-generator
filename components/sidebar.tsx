@@ -61,6 +61,7 @@ export function Sidebar({
               onClick={() => onSelect(i)}
               className="cp-sidebar-item"
               data-cursor="hover"
+              data-active={active ? "true" : "false"}
               style={{
                 display: "flex",
                 alignItems: "center",
