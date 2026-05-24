@@ -56,7 +56,7 @@ export function StepType({
               <div className="flex items-start justify-between mb-4">
                 <div
                   className="grid place-items-center"
-                  style={{ width: 40, height: 40, background: active ? "var(--accent)" : "var(--bg-elevated)", color: active ? "var(--color-ink-9)" : "var(--text-primary)", borderRadius: 10 }}
+                  style={{ width: 40, height: 40, background: active ? "var(--accent)" : "var(--bg-elevated)", color: active ? "var(--color-snow)" : "var(--text-primary)", borderRadius: 10 }}
                 >
                   <Icon size={18} />
                 </div>
@@ -633,7 +633,7 @@ function ClauseRow({
                   fontSize: 9,
                   padding: "2px 6px",
                   background: required ? "var(--accent)" : "var(--bg-elevated)",
-                  color: required ? "var(--color-ink-9)" : "var(--text-muted)",
+                  color: required ? "var(--color-snow)" : "var(--text-muted)",
                 }}
               >
                 {clause.category}
@@ -752,11 +752,45 @@ function SelectField({
 function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
   return (
     <button
+      type="button"
       onClick={() => onChange(!checked)}
-      className="flex items-center gap-2"
-      style={{ padding: "6px 12px", border: "1px solid var(--border-subtle)", borderRadius: 999, background: checked ? "var(--accent)" : "var(--bg-elevated)", color: checked ? "var(--color-ink-9)" : "var(--text-secondary)", fontSize: 12, fontWeight: 500 }}
+      aria-pressed={checked}
+      className="cp-chip"
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 6,
+        padding: "6px 12px 6px 8px",
+        borderRadius: 999,
+        border: `1px solid ${checked ? "var(--color-carbon)" : "var(--border-strong)"}`,
+        background: checked ? "var(--color-carbon)" : "transparent",
+        color: checked ? "var(--color-snow)" : "var(--text-secondary)",
+        fontSize: 12,
+        fontFamily: "var(--font-body)",
+        fontWeight: 500,
+        cursor: "pointer",
+        transition: "all 180ms ease",
+        whiteSpace: "nowrap",
+        lineHeight: 1,
+      }}
     >
-      {checked ? <Check size={12} /> : <span style={{ width: 12 }} />}
+      <span
+        aria-hidden
+        style={{
+          width: 14,
+          height: 14,
+          borderRadius: 999,
+          border: `1px solid ${checked ? "var(--color-snow)" : "var(--border-strong)"}`,
+          background: checked ? "var(--color-snow)" : "transparent",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "var(--color-carbon)",
+          flexShrink: 0,
+        }}
+      >
+        {checked && <Check size={10} strokeWidth={3} />}
+      </span>
       {label}
     </button>
   );
