@@ -133,7 +133,7 @@ export function SignaturePad({
             Effacer
           </button>
           {hasInk && (
-            <span className={cn("pill")} style={{ background: "var(--accent)", color: "var(--bg-base)" }}>
+            <span className={cn("pill")} style={{ background: "var(--accent)", color: "var(--color-ink-9)" }}>
               <Check size={10} />
               Signé
             </span>

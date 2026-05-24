@@ -289,7 +289,7 @@ function SectionCard({
               borderRadius: 999,
               background: done ? "var(--accent)" : open ? "var(--bg-elevated)" : "transparent",
               border: done ? "1px solid var(--accent)" : "1px solid var(--border-subtle)",
-              color: done ? "var(--bg-base)" : "var(--text-secondary)",
+              color: done ? "var(--color-ink-9)" : "var(--text-secondary)",
               fontFamily: "var(--font-mono)",
               fontSize: 11,
               fontWeight: 500,

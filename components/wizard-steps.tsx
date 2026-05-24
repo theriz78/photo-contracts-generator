@@ -56,7 +56,7 @@ export function StepType({
               <div className="flex items-start justify-between mb-4">
                 <div
                   className="grid place-items-center"
-                  style={{ width: 40, height: 40, background: active ? "var(--accent)" : "var(--bg-elevated)", color: active ? "var(--bg-base)" : "var(--text-primary)", borderRadius: 10 }}
+                  style={{ width: 40, height: 40, background: active ? "var(--accent)" : "var(--bg-elevated)", color: active ? "var(--color-ink-9)" : "var(--text-primary)", borderRadius: 10 }}
                 >
                   <Icon size={18} />
                 </div>
@@ -600,7 +600,7 @@ function ClauseRow({
                   fontSize: 9,
                   padding: "2px 6px",
                   background: required ? "var(--accent)" : "var(--bg-elevated)",
-                  color: required ? "var(--bg-base)" : "var(--text-muted)",
+                  color: required ? "var(--color-ink-9)" : "var(--text-muted)",
                 }}
               >
                 {clause.category}
@@ -721,7 +721,7 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
     <button
       onClick={() => onChange(!checked)}
       className="flex items-center gap-2"
-      style={{ padding: "6px 12px", border: "1px solid var(--border-subtle)", borderRadius: 999, background: checked ? "var(--accent)" : "var(--bg-elevated)", color: checked ? "var(--bg-base)" : "var(--text-secondary)", fontSize: 12, fontWeight: 500 }}
+      style={{ padding: "6px 12px", border: "1px solid var(--border-subtle)", borderRadius: 999, background: checked ? "var(--accent)" : "var(--bg-elevated)", color: checked ? "var(--color-ink-9)" : "var(--text-secondary)", fontSize: 12, fontWeight: 500 }}
     >
       {checked ? <Check size={12} /> : <span style={{ width: 12 }} />}
       {label}
