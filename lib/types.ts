@@ -39,7 +39,10 @@ export type CessionSupport =
   | "cinema"
   | "out-of-home";
 
+export type PhotographerStatus = "pro" | "occasionnel";
+
 export interface Photographer {
+  status: PhotographerStatus;
   fullName: string;
   brandName?: string;
   logoDataUrl?: string;

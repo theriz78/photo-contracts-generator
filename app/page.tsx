@@ -9,6 +9,7 @@ import { PreviewPanel } from "@/components/preview-panel";
 import { ActionBar } from "@/components/action-bar";
 import { PresetPicker } from "@/components/preset-picker";
 import { Sidebar } from "@/components/sidebar";
+import { OnboardingModal } from "@/components/onboarding-modal";
 import {
   StepType,
   StepParties,
@@ -18,7 +19,8 @@ import {
 } from "@/components/wizard-steps";
 import { CustomCursor } from "@/components/custom-cursor";
 import { useDraft } from "@/lib/draft-store";
-import type { ContractDraft } from "@/lib/types";
+import { useStudio, isConfigured } from "@/lib/studio-store";
+import type { ContractDraft, Photographer } from "@/lib/types";
 
 interface SectionDef {
   id: string;
@@ -53,11 +55,28 @@ const SECTIONS: SectionDef[] = [
 
 export default function Home() {
   const { draft, patch, setDraft, reset, hydrated } = useDraft();
+  const { studio, hydrated: studioHydrated, saveProfile } = useStudio();
   const [activeIdx, setActiveIdx] = useState(0);
   const [previewOpen, setPreviewOpen] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [onboardingOpen, setOnboardingOpen] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
   const sec = SECTIONS[activeIdx];
+
+  useEffect(() => {
+    if (!studioHydrated || !hydrated) return;
+    if (!isConfigured(studio)) {
+      setOnboardingOpen(true);
+    } else if (studio.photographer && !draft.photographer.fullName) {
+      patch((p) => ({ ...p, photographer: { ...p.photographer, ...studio.photographer! } }));
+    }
+  }, [studioHydrated, hydrated, studio, draft.photographer.fullName, patch]);
+
+  const handleOnboardingComplete = (photographer: Photographer) => {
+    saveProfile(photographer);
+    patch((p) => ({ ...p, photographer: { ...p.photographer, ...photographer } }));
+    setOnboardingOpen(false);
+  };
 
   const completedCount = useMemo(() => SECTIONS.slice(1).filter((s) => s.isComplete(draft)).length, [draft]);
   const isComplete = (i: number) => SECTIONS[i].isComplete(draft);
@@ -93,7 +112,7 @@ export default function Home() {
   return (
     <div className="cp-shell" style={{ height: "100vh", display: "flex", flexDirection: "column", overflow: "hidden" }}>
       <CustomCursor />
-      <TopBar draft={draft} onResetDraft={reset} onSwitchLang={switchLang} onMenuToggle={() => setSidebarOpen((v) => !v)} />
+      <TopBar draft={draft} onResetDraft={reset} onSwitchLang={switchLang} onMenuToggle={() => setSidebarOpen((v) => !v)} onOpenStudio={() => setOnboardingOpen(true)} />
 
       <div className="flex-1 min-h-0 flex">
         <Sidebar
@@ -134,7 +153,7 @@ export default function Home() {
                   {sec.id === "prestation" && <StepPrestation draft={draft} patch={patch} />}
                   {sec.id === "terms" && <StepTerms draft={draft} patch={patch} />}
                   {sec.id === "clauses" && <StepClauses draft={draft} patch={patch} />}
-                  <div style={{ height: 120 }} />
+                  <div style={{ height: 160 }} />
                 </div>
               </div>
 
@@ -210,6 +229,14 @@ export default function Home() {
       </div>
 
       <ActionBar draft={draft} />
+
+      {onboardingOpen && (
+        <OnboardingModal
+          initial={studio.photographer}
+          onComplete={handleOnboardingComplete}
+          onSkip={isConfigured(studio) ? () => setOnboardingOpen(false) : undefined}
+        />
+      )}
 
       {/* Print-only full render */}
       <div className="print-only" style={{ display: "none" }}>

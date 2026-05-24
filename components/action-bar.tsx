@@ -22,10 +22,9 @@ export function ActionBar({ draft }: { draft: ContractDraft }) {
           className="bento-card flex items-center justify-between gap-2"
           style={{
             padding: "10px 12px",
-            background: "color-mix(in oklab, var(--bg-card) 88%, transparent)",
-            backdropFilter: "blur(14px)",
-            borderColor: "var(--border-strong)",
-            boxShadow: "0 10px 40px -10px color-mix(in oklab, var(--bg-base) 80%, transparent)",
+            background: "var(--color-snow)",
+            borderColor: "var(--color-carbon)",
+            boxShadow: "0 12px 36px -10px rgba(0,0,0,0.25)",
           }}
         >
           <div className="flex items-center gap-2 pl-2 shrink-0">

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Globe2, Trash2, Save, Menu } from "lucide-react";
+import { Globe2, Trash2, Save, Menu, Camera } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import type { ContractDraft } from "@/lib/types";
 
@@ -10,11 +10,13 @@ export function TopBar({
   onResetDraft,
   onSwitchLang,
   onMenuToggle,
+  onOpenStudio,
 }: {
   draft: ContractDraft;
   onResetDraft: () => void;
   onSwitchLang: () => void;
   onMenuToggle?: () => void;
+  onOpenStudio?: () => void;
 }) {
   return (
     <header
@@ -68,6 +70,18 @@ export function TopBar({
         </div>
 
         <nav className="flex items-center gap-1">
+          {onOpenStudio && (
+            <button
+              onClick={onOpenStudio}
+              className="inline-flex btn btn-ghost"
+              style={{ padding: "6px 10px", fontSize: 12 }}
+              data-cursor="hover"
+              title="Modifier mon studio"
+            >
+              <Camera size={12} />
+              <span className="hidden sm:inline">Studio</span>
+            </button>
+          )}
           <button
             onClick={onSwitchLang}
             className="hidden sm:inline-flex btn btn-ghost"

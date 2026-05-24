@@ -13,6 +13,7 @@ export function createEmptyDraft(): ContractDraft {
     niche: "mariage",
     language: "fr",
     photographer: {
+      status: "pro",
       fullName: "",
       brandName: "",
       logoDataUrl: "",
