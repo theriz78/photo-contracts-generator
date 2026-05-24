@@ -53,6 +53,10 @@ export interface Photographer {
   insurance?: string;
   microEntrepreneur: boolean;
   tvaExemption: boolean;
+  includeSiret: boolean;
+  includeRcs: boolean;
+  includeIban: boolean;
+  includeInsurance: boolean;
 }
 
 export interface Client {

@@ -92,12 +92,19 @@ export function PreviewPanel({ draft }: { draft: ContractDraft }) {
 
         <div style={{ marginBottom: 14 }}>
           <strong>Le Photographe</strong> : <Bracket filled={!!draft.photographer.fullName}>{draft.photographer.fullName || "Nom et prénom du photographe"}</Bracket>
-          {draft.photographer.brandName && (<> exerçant sous le nom commercial <Bracket filled>{draft.photographer.brandName}</Bracket></>)}, micro-entrepreneur, SIRET <Bracket filled={!!draft.photographer.siret}>{draft.photographer.siret || "SIRET"}</Bracket>{draft.photographer.rcs && (<>, {draft.photographer.rcs}</>)}, domicilié <Bracket filled={!!draft.photographer.address}>{draft.photographer.address || "Adresse complète"}</Bracket>, email <Bracket filled={!!draft.photographer.email}>{draft.photographer.email || "email"}</Bracket>, téléphone <Bracket filled={!!draft.photographer.phone}>{draft.photographer.phone || "téléphone"}</Bracket>.
+          {draft.photographer.brandName && (<> exerçant sous le nom commercial <Bracket filled>{draft.photographer.brandName}</Bracket></>)}
+          {draft.photographer.microEntrepreneur && <>, micro-entrepreneur</>}
+          {draft.photographer.includeSiret && (<>, SIRET <Bracket filled={!!draft.photographer.siret}>{draft.photographer.siret || "SIRET"}</Bracket></>)}
+          {draft.photographer.includeRcs && draft.photographer.rcs && (<>, {draft.photographer.rcs}</>)}
+          , domicilié <Bracket filled={!!draft.photographer.address}>{draft.photographer.address || "Adresse complète"}</Bracket>, email <Bracket filled={!!draft.photographer.email}>{draft.photographer.email || "email"}</Bracket>, téléphone <Bracket filled={!!draft.photographer.phone}>{draft.photographer.phone || "téléphone"}</Bracket>.
           {draft.photographer.tvaExemption && (
             <> TVA non applicable, article 293 B du Code général des impôts.</>
           )}
-          {draft.photographer.insurance && (
+          {draft.photographer.includeInsurance && draft.photographer.insurance && (
             <> Assurance RC professionnelle : <Bracket filled>{draft.photographer.insurance}</Bracket>.</>
+          )}
+          {draft.photographer.includeIban && draft.photographer.iban && (
+            <> Coordonnées bancaires : <Bracket filled>{draft.photographer.iban}</Bracket>.</>
           )}
         </div>
 

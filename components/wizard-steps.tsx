@@ -161,19 +161,52 @@ export function StepParties({
             </div>
           </div>
 
+          <div className="flex flex-wrap gap-2 mb-4 pb-4 border-b" style={{ borderColor: "var(--border-subtle)" }}>
+            <span className="label-eyebrow mr-1 self-center">Champs activables :</span>
+            <Toggle
+              label="SIRET"
+              checked={draft.photographer.includeSiret}
+              onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, includeSiret: v } }))}
+            />
+            <Toggle
+              label="RCS / RM"
+              checked={draft.photographer.includeRcs}
+              onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, includeRcs: v } }))}
+            />
+            <Toggle
+              label="IBAN"
+              checked={draft.photographer.includeIban}
+              onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, includeIban: v } }))}
+            />
+            <Toggle
+              label="Assurance RC pro"
+              checked={draft.photographer.includeInsurance}
+              onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, includeInsurance: v } }))}
+            />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <Field label="Nom et prénom *" value={draft.photographer.fullName} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, fullName: v } }))} placeholder="Lucius Martel" />
             <Field label="Nom commercial" value={draft.photographer.brandName ?? ""} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, brandName: v } }))} placeholder="Lucius Studio" />
-            <Field label="SIRET *" value={draft.photographer.siret} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, siret: v } }))} placeholder="123 456 789 00012" />
-            <Field label="RCS / RM (optionnel)" value={draft.photographer.rcs ?? ""} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, rcs: v } }))} placeholder="RCS Paris 123 456 789" />
+            {draft.photographer.includeSiret && (
+              <Field label="SIRET *" value={draft.photographer.siret} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, siret: v } }))} placeholder="123 456 789 00012" />
+            )}
+            {draft.photographer.includeRcs && (
+              <Field label="RCS / RM" value={draft.photographer.rcs ?? ""} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, rcs: v } }))} placeholder="RCS Paris 123 456 789" />
+            )}
             <Field label="Email *" value={draft.photographer.email} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, email: v } }))} placeholder="contact@studio.fr" type="email" />
             <Field label="Téléphone *" value={draft.photographer.phone} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, phone: v } }))} placeholder="+33 6 12 34 56 78" />
             <Field label="Adresse complète *" value={draft.photographer.address} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, address: v } }))} placeholder="12 rue de l'Image, 75011 Paris" wide />
-            <Field label="IBAN" value={draft.photographer.iban ?? ""} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, iban: v } }))} placeholder="FR76 ..." />
-            <Field label="Assurance RC pro" value={draft.photographer.insurance ?? ""} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, insurance: v } }))} placeholder="MAAF Pro n° 12345678" />
+            {draft.photographer.includeIban && (
+              <Field label="IBAN" value={draft.photographer.iban ?? ""} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, iban: v } }))} placeholder="FR76 ..." />
+            )}
+            {draft.photographer.includeInsurance && (
+              <Field label="Assurance RC pro" value={draft.photographer.insurance ?? ""} onChange={(v) => patch((p) => ({ ...p, photographer: { ...p.photographer, insurance: v } }))} placeholder="MAAF Pro n° 12345678" />
+            )}
           </div>
 
-          <div className="flex flex-wrap gap-3 mt-4 pt-4 border-t" style={{ borderColor: "var(--border-subtle)" }}>
+          <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t" style={{ borderColor: "var(--border-subtle)" }}>
+            <span className="label-eyebrow mr-1 self-center">Statut :</span>
             <Toggle
               label="Micro-entrepreneur"
               checked={draft.photographer.microEntrepreneur}

@@ -26,6 +26,10 @@ export function createEmptyDraft(): ContractDraft {
       insurance: "",
       microEntrepreneur: true,
       tvaExemption: true,
+      includeSiret: true,
+      includeRcs: false,
+      includeIban: true,
+      includeInsurance: false,
     },
     client: {
       legalForm: "personne-physique",
@@ -110,8 +114,23 @@ export function useDraft() {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        const parsed = JSON.parse(stored) as ContractDraft;
-        setDraft({ ...createEmptyDraft(), ...parsed });
+        const parsed = JSON.parse(stored) as Partial<ContractDraft>;
+        const fresh = createEmptyDraft();
+        setDraft({
+          ...fresh,
+          ...parsed,
+          photographer: { ...fresh.photographer, ...(parsed.photographer ?? {}) },
+          client: { ...fresh.client, ...(parsed.client ?? {}) },
+          service: {
+            ...fresh.service,
+            ...(parsed.service ?? {}),
+            deliverables: { ...fresh.service.deliverables, ...(parsed.service?.deliverables ?? {}) },
+          },
+          pricing: { ...fresh.pricing!, ...(parsed.pricing ?? {}), deposit: { ...fresh.pricing!.deposit, ...(parsed.pricing?.deposit ?? {}) } },
+          tfpCounterparts: { ...fresh.tfpCounterparts!, ...(parsed.tfpCounterparts ?? {}) },
+          cession: { ...fresh.cession, ...(parsed.cession ?? {}) },
+          penalties: { ...fresh.penalties, ...(parsed.penalties ?? {}) },
+        });
       }
     } catch {}
     setHydrated(true);
