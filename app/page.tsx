@@ -57,7 +57,13 @@ export default function Home() {
   const { draft, patch, setDraft, reset, hydrated } = useDraft();
   const { studio, hydrated: studioHydrated, saveProfile } = useStudio();
   const [activeIdx, setActiveIdx] = useState(0);
-  const [previewOpen, setPreviewOpen] = useState(true);
+  const [previewOpen, setPreviewOpen] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches) {
+      setPreviewOpen(true);
+    }
+  }, []);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [onboardingOpen, setOnboardingOpen] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
