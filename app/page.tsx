@@ -186,29 +186,42 @@ function SectionHeader({
 }) {
   const total = 5;
   const pct = (completedCount / total) * 100;
-  const today = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
   return (
     <div className="no-print" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
-      <div className="px-6 pt-5 pb-2 flex items-center justify-between gap-4 flex-wrap" style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-muted)", letterSpacing: "0.08em" }}>
-        <div className="flex items-center gap-3">
-          <span style={{ textTransform: "uppercase" }}>Section {sec.num}</span>
-          <span style={{ opacity: 0.4 }}>·</span>
-          <span style={{ textTransform: "uppercase" }}>{today}</span>
-          <span style={{ opacity: 0.4 }}>·</span>
-          <span style={{ textTransform: "uppercase" }}>{sec.hint}</span>
+      <div
+        className="px-8 pt-4 pb-2 flex items-center justify-between gap-4"
+        style={{ fontFamily: "var(--font-mono)", fontSize: 10, color: "var(--text-muted)", letterSpacing: "0.14em", textTransform: "uppercase" }}
+      >
+        <div className="flex items-center gap-2">
+          <span style={{ fontWeight: 500 }}>SOTD</span>
+          <span style={{ opacity: 0.4 }}>/</span>
+          <span>Section {sec.num}</span>
         </div>
         <div className="flex items-center gap-3">
-          <div style={{ width: 100, height: 1, background: "var(--border-strong)", overflow: "hidden" }}>
-            <div style={{ height: "100%", width: `${pct}%`, background: "var(--text-primary)", transition: "width 600ms cubic-bezier(.2,.7,.2,1)" }} />
+          <div style={{ width: 80, height: 1, background: "var(--border-strong)", overflow: "hidden" }}>
+            <div
+              style={{
+                height: "100%",
+                width: `${pct}%`,
+                background: "var(--text-primary)",
+                transition: "width 600ms cubic-bezier(.2,.7,.2,1)",
+              }}
+            />
           </div>
           <span>{completedCount.toString().padStart(2, "0")} / {total.toString().padStart(2, "0")}</span>
         </div>
       </div>
 
-      <div className="px-6 pb-6 pt-1 text-center">
-        <h1 className="display-massive-serif" style={{ color: "var(--text-primary)" }}>
+      <div className="px-8 pb-7 pt-2 text-center">
+        <h1
+          className="display-massive-serif"
+          style={{ color: "var(--text-primary)", display: "block", marginBottom: 12 }}
+        >
           {sec.title}
         </h1>
+        <div className="arrow-eyebrow" style={{ justifyContent: "center" }}>
+          {sec.hint}
+        </div>
       </div>
     </div>
   );

@@ -252,6 +252,45 @@
     border-color: transparent;
   }
 
+  .bento-card-dark {
+    background: var(--text-primary);
+    color: var(--bg-base);
+    border-color: var(--text-primary);
+  }
+  .bento-card-dark .label-eyebrow,
+  .bento-card-dark .label-tag,
+  .bento-card-dark .text-soft,
+  .bento-card-dark .text-mute {
+    color: color-mix(in oklab, var(--bg-base) 65%, transparent) !important;
+  }
+  .bento-card-dark .text-accent {
+    color: var(--accent-soft);
+  }
+  .bento-card-dark:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--color-ink-9);
+  }
+  .bento-card-dark:hover .label-eyebrow,
+  .bento-card-dark:hover .label-tag,
+  .bento-card-dark:hover .text-soft,
+  .bento-card-dark:hover .text-mute {
+    color: color-mix(in oklab, var(--color-ink-9) 70%, transparent) !important;
+  }
+
+  .arrow-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+  .arrow-eyebrow::before { content: "→"; opacity: 0.6; }
+
   .pill {
     display: inline-flex;
     align-items: center;

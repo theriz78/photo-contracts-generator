@@ -39,46 +39,33 @@ export function PresetPicker({
 
   return (
     <section ref={wrapRef} className="no-print" aria-label="Presets">
-      <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-        <div className="flex items-center gap-3">
-          <span style={{ width: 28, height: 1, background: "var(--accent)" }} />
-          <span className="label-eyebrow" style={{ letterSpacing: "0.22em" }}>Démarrage rapide · 5 presets</span>
-        </div>
-        <span className="text-mute" style={{ fontSize: 12, fontFamily: "var(--font-fraunces)", fontStyle: "italic" }}>
-          Pré-remplit type, niche, cession, tarif, clauses.
-        </span>
-      </div>
-
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-        {PRESETS.map((p) => {
+        {PRESETS.map((p, i) => {
           const Icon = ICONS[p.id] ?? Heart;
           return (
             <button
               key={p.id}
               onClick={() => onApply(p.apply(current))}
-              className="cp-preset-card bento-card cp-lift glow-ring text-left"
+              className="cp-preset-card bento-card bento-card-dark cp-lift text-left"
               data-cursor="hover"
-              style={{ padding: 18, minHeight: 168, position: "relative" }}
+              style={{ padding: 22, minHeight: 220, position: "relative" }}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div
-                  className="grid place-items-center"
-                  style={{ width: 36, height: 36, borderRadius: 10, background: "var(--bg-elevated)", border: "1px solid var(--border-subtle)" }}
-                >
-                  <Icon size={16} className="text-accent" />
+              <div className="flex items-start justify-between mb-8">
+                <div className="arrow-eyebrow" style={{ color: "color-mix(in oklab, var(--bg-base) 50%, transparent)" }}>
+                  N° 0{i + 1}
                 </div>
-                <ArrowRight size={14} className="text-mute" style={{ transition: "transform 280ms" }} />
+                <ArrowRight size={16} style={{ opacity: 0.5, transition: "transform 280ms, opacity 280ms" }} />
               </div>
               <h3
                 className="editorial"
-                style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontSize: "1.25rem", fontWeight: 380, lineHeight: 1.1, letterSpacing: "-0.012em" }}
+                style={{ fontFamily: "var(--font-fraunces), Georgia, serif", fontSize: "1.5rem", fontWeight: 540, lineHeight: 1.05, letterSpacing: "-0.018em", textTransform: "uppercase" }}
               >
                 {p.title}
               </h3>
-              <p className="label-tag mt-1.5" style={{ fontSize: 10, color: "var(--text-mute)" }}>
+              <p className="label-tag mt-2" style={{ fontSize: 9, letterSpacing: "0.12em" }}>
                 {p.tagline}
               </p>
-              <p className="text-soft mt-3" style={{ fontSize: 11.5, lineHeight: 1.5 }}>
+              <p className="text-soft mt-3" style={{ fontSize: 12, lineHeight: 1.55, opacity: 0.8 }}>
                 {p.description}
               </p>
             </button>
