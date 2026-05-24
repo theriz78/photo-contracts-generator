@@ -157,6 +157,56 @@ export const DEFAULT_CLAUSES: ClauseToggle[] = [
     body:
       "Le présent contrat est soumis au droit français. En cas de litige, les parties s'efforceront de trouver une solution amiable. À défaut, pour les contrats avec un consommateur, le Client peut recourir gratuitement à un médiateur de la consommation. À défaut de résolution amiable, le litige sera porté devant les tribunaux compétents.",
   },
+  {
+    id: "reconnaissance-lecture",
+    label: "Reconnaissance de lecture et de compréhension",
+    description: "Mention manuscrite obligatoire avant signature, prouve consentement éclairé.",
+    category: "recommandee",
+    enabled: true,
+    appliesTo: ["b2b", "b2c", "tfp"],
+    body:
+      "Chaque partie reconnaît avoir lu l'intégralité du présent contrat ainsi que ses annexes, en avoir compris la portée juridique, et avoir disposé du temps nécessaire à son examen avant signature. La signature de chaque partie est précédée de la mention manuscrite : « Lu et approuvé, bon pour accord ». Cette mention constitue la preuve d'un consentement libre, éclairé et non vicié au sens des articles 1130 et suivants du Code civil.",
+  },
+  {
+    id: "divisibilite",
+    label: "Divisibilité des clauses",
+    description: "Si une clause est nulle, les autres restent valables.",
+    category: "recommandee",
+    enabled: true,
+    appliesTo: ["b2b", "b2c", "tfp"],
+    body:
+      "Si une ou plusieurs stipulations du présent contrat sont tenues pour non valides ou déclarées telles en application d'une loi, d'un règlement ou à la suite d'une décision définitive d'une juridiction compétente, les autres stipulations conserveront leur force et leur portée. Les parties s'efforceront alors de remplacer la stipulation invalide par une stipulation valide produisant un effet économique et juridique aussi proche que possible.",
+  },
+  {
+    id: "anteriorite-ecrit",
+    label: "Antériorité de l'écrit sur l'oral",
+    description: "Le contrat écrit prime sur tout accord oral antérieur.",
+    category: "recommandee",
+    enabled: true,
+    appliesTo: ["b2b", "b2c", "tfp"],
+    body:
+      "Le présent contrat exprime l'intégralité des engagements des parties relatifs à son objet et annule et remplace tout accord, négociation, déclaration, échange ou communication antérieur entre elles, écrit ou oral, portant sur le même objet. Toute modification du présent contrat ne pourra résulter que d'un avenant écrit et signé des deux parties.",
+  },
+  {
+    id: "langue-francaise",
+    label: "Langue française authentique",
+    description: "La version française fait foi en cas de traduction.",
+    category: "optionnelle",
+    enabled: false,
+    appliesTo: ["b2b", "b2c", "tfp"],
+    body:
+      "Le présent contrat est rédigé en langue française. Toute traduction qui pourrait en être faite ne le sera qu'à titre informatif. En cas de divergence d'interprétation entre la version française et toute traduction, seule la version française fera foi entre les parties.",
+  },
+  {
+    id: "prise-conseil",
+    label: "Faculté de prise de conseil juridique",
+    description: "Chaque partie a pu se faire conseiller. Empêche contestation pour vice du consentement.",
+    category: "recommandee",
+    enabled: true,
+    appliesTo: ["b2b", "b2c", "tfp"],
+    body:
+      "Chaque partie reconnaît avoir eu la faculté, avant signature, de prendre conseil auprès de tout professionnel de son choix (avocat, expert-comptable, conseiller juridique) afin d'examiner le présent contrat et d'en mesurer la portée. Le fait de ne pas avoir recouru à un tel conseil ne pourra être invoqué pour contester la validité du présent contrat.",
+  },
 ];
 
 export function filterClausesByType(

@@ -9,6 +9,7 @@ import type { ContractDraft } from "@/lib/types";
 import { MAIL_TEMPLATES, interpolate, buildMailto } from "@/lib/mail-templates";
 import { encodeDraftToHash, buildShareUrl } from "@/lib/share-encode";
 import { cn } from "@/lib/utils";
+import { ComplianceAudit } from "./compliance-audit";
 
 export function ActionBar({ draft }: { draft: ContractDraft }) {
   const [mailOpen, setMailOpen] = useState(false);
@@ -32,6 +33,7 @@ export function ActionBar({ draft }: { draft: ContractDraft }) {
             <span className="text-sm text-soft hidden sm:inline">Actions</span>
           </div>
           <div className="flex items-center gap-2 ml-auto">
+            <ComplianceAudit draft={draft} />
             <button onClick={() => setMailOpen(true)} className="btn btn-ghost" style={{ padding: "8px 12px", fontSize: 13 }}>
               <Mail size={14} />
               <span className="hidden sm:inline">Email</span>

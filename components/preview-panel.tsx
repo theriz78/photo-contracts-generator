@@ -154,8 +154,37 @@ export function PreviewPanel({ draft }: { draft: ContractDraft }) {
           </Article>
         ))}
 
+      {/* Waiver / Déclarations pré-signature */}
+      <section
+        className="signature-block"
+        style={{ marginTop: 24, paddingTop: 18, borderTop: "1px solid var(--border-subtle)" }}
+      >
+        <h3
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 11,
+            textTransform: "uppercase",
+            letterSpacing: "0.08em",
+            color: "var(--text-secondary)",
+            marginBottom: 10,
+          }}
+        >
+          Déclarations et reconnaissances
+        </h3>
+        <p style={{ marginBottom: 8 }}>
+          Chacune des Parties déclare et reconnaît, avant apposition de sa signature :
+        </p>
+        <ol style={{ paddingLeft: 18, marginBottom: 10 }}>
+          <li style={{ marginBottom: 4 }}>avoir lu l'intégralité du présent contrat ainsi que ses annexes ;</li>
+          <li style={{ marginBottom: 4 }}>en avoir compris la portée juridique et les implications économiques ;</li>
+          <li style={{ marginBottom: 4 }}>avoir disposé du temps nécessaire à son examen ;</li>
+          <li style={{ marginBottom: 4 }}>avoir été informée de la possibilité de prendre conseil auprès d'un professionnel de son choix (avocat, expert-comptable) ;</li>
+          <li style={{ marginBottom: 4 }}>signer librement, en pleine connaissance de cause, sans vice du consentement au sens des articles 1130 et suivants du Code civil.</li>
+        </ol>
+      </section>
+
       {/* Signature block */}
-      <div className="signature-block" style={{ marginTop: 32, paddingTop: 24, borderTop: "1px solid var(--border-subtle)" }}>
+      <div className="signature-block" style={{ marginTop: 24, paddingTop: 18, borderTop: "1px solid var(--border-subtle)" }}>
         <p style={{ marginBottom: 16 }}>
           Fait à <Bracket filled={!!draft.signaturePlace}>{draft.signaturePlace || "Lieu"}</Bracket>, le <Bracket filled={!!draft.signatureDate}>{formatDateFR(draft.signatureDate) || "Date"}</Bracket>, en deux (2) exemplaires originaux.
         </p>
@@ -166,7 +195,7 @@ export function PreviewPanel({ draft }: { draft: ContractDraft }) {
         </div>
 
         <p style={{ marginTop: 16, fontSize: 10, color: "var(--text-muted)", fontStyle: "italic" }}>
-          Signature précédée de la mention manuscrite « Lu et approuvé, bon pour accord ».
+          Chaque signature est précédée de la mention manuscrite « Lu et approuvé, bon pour accord ».
         </p>
       </div>
     </div>
