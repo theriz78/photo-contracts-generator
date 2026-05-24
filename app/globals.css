@@ -31,7 +31,25 @@
 }
 
 @layer base {
-  :root {
+  :root,
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --bg-base: #f5f1ea;
+    --bg-elevated: #ede8de;
+    --bg-card: #ffffff;
+    --bg-card-hover: #e6e0d2;
+    --border-subtle: #e1dbcc;
+    --border-strong: #b9b0a0;
+    --text-primary: #0a0908;
+    --text-secondary: #4a4339;
+    --text-muted: #7a7164;
+    --accent: var(--color-indigo-deep);
+    --accent-soft: var(--color-indigo-glow);
+    --accent-deep: #0a0908;
+    --grain-opacity: 0.03;
+  }
+
+  :root[data-theme="dark"] {
     color-scheme: dark;
     --bg-base: var(--color-ink-0);
     --bg-elevated: var(--color-ink-1);
@@ -46,23 +64,6 @@
     --accent-soft: var(--color-indigo-soft);
     --accent-deep: var(--color-indigo-deep);
     --grain-opacity: 0.06;
-  }
-
-  :root[data-theme="light"] {
-    color-scheme: light;
-    --bg-base: var(--color-ink-9);
-    --bg-elevated: #ffffff;
-    --bg-card: #ffffff;
-    --bg-card-hover: var(--color-ink-8);
-    --border-subtle: var(--color-ink-8);
-    --border-strong: var(--color-ink-7);
-    --text-primary: var(--color-ink-0);
-    --text-secondary: var(--color-ink-4);
-    --text-muted: var(--color-ink-5);
-    --accent: var(--color-indigo-deep);
-    --accent-soft: var(--color-indigo-glow);
-    --accent-deep: var(--color-ink-0);
-    --grain-opacity: 0.04;
   }
 
   * { border-color: var(--border-subtle); }
@@ -154,6 +155,24 @@
     font-size: clamp(3.2rem, 11vw, 11rem);
     line-height: 0.92;
     letter-spacing: -0.045em;
+    font-optical-sizing: auto;
+  }
+
+  .display-massive {
+    font-family: var(--font-bricolage);
+    font-weight: 800;
+    font-size: clamp(3rem, 9vw, 9rem);
+    line-height: 0.86;
+    letter-spacing: -0.055em;
+    text-transform: uppercase;
+  }
+  .display-massive-serif {
+    font-family: var(--font-fraunces);
+    font-weight: 720;
+    font-size: clamp(3rem, 9vw, 9rem);
+    line-height: 0.86;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
     font-optical-sizing: auto;
   }
 
@@ -282,10 +301,12 @@
     transition: all 220ms cubic-bezier(.2,.7,.2,1);
     white-space: nowrap;
   }
-  .btn-primary { background: var(--accent); color: var(--color-ink-9); }
-  .btn-primary:hover { filter: brightness(1.12); transform: translateY(-1px); box-shadow: 0 8px 24px -8px color-mix(in oklab, var(--accent) 80%, transparent); }
-  .btn-ghost { background: transparent; border-color: var(--border-subtle); color: var(--text-primary); }
-  .btn-ghost:hover { background: var(--bg-card-hover); border-color: var(--border-strong); }
+  .btn-primary { background: var(--text-primary); color: var(--bg-base); border-radius: 999px; padding: 12px 22px; font-weight: 500; }
+  .btn-primary:hover { background: var(--accent); color: var(--color-ink-9); transform: translateY(-1px); }
+  .btn-accent { background: var(--accent); color: var(--color-ink-9); border-radius: 999px; padding: 12px 22px; font-weight: 500; }
+  .btn-accent:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; border: 1px solid var(--border-strong); color: var(--text-primary); border-radius: 999px; padding: 10px 16px; }
+  .btn-ghost:hover { background: var(--text-primary); color: var(--bg-base); border-color: var(--text-primary); }
   .btn-icon { padding: 10px; width: 40px; height: 40px; }
   .btn-cta {
     padding: 14px 24px;

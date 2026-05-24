@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FileText, Globe2, Trash2, Save } from "lucide-react";
+import { Globe2, Trash2, Save } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import type { ContractDraft } from "@/lib/types";
 
@@ -14,42 +14,41 @@ export function TopBar({
   onResetDraft: () => void;
   onSwitchLang: () => void;
 }) {
-  const stepLabel = {
-    b2b: "Prestation B2B",
-    b2c: "Prestation B2C",
-    tfp: "Collaboration TFP",
-  }[draft.type];
-
   return (
     <header
-      className="no-print sticky top-0 z-30"
-      style={{ background: "color-mix(in oklab, var(--bg-base) 88%, transparent)", backdropFilter: "blur(14px)" }}
+      className="no-print"
+      style={{
+        background: "var(--bg-base)",
+        borderBottom: "1px solid var(--border-subtle)",
+        position: "relative",
+        zIndex: 30,
+      }}
     >
-      <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: "var(--border-subtle)" }}>
-        <div className="flex items-center gap-4" style={{ animation: "cp-fade-in 400ms ease both" }}>
-          <Link href="/" className="flex items-center gap-3" data-cursor="hover">
-            <div
-              className="grid place-items-center"
-              style={{ width: 36, height: 36, background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: 10 }}
-            >
-              <FileText size={18} className="text-accent" />
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="editorial" style={{ fontSize: 18, fontWeight: 380, letterSpacing: "-0.01em" }}>Contrats Photo</span>
-              <span className="label-tag" style={{ fontSize: 9, color: "var(--text-mute)" }}>Générateur FR · Studio Lucius</span>
-            </div>
-          </Link>
-
-          <span className="pill ml-2 hidden sm:inline-flex">
-            <span style={{ width: 6, height: 6, borderRadius: 999, background: "var(--accent)" }} />
-            {stepLabel}
+      <div className="flex items-center justify-between px-6 py-4">
+        <Link href="/" className="flex items-center gap-3" data-cursor="hover" aria-label="Accueil">
+          <span
+            className="editorial"
+            style={{
+              fontFamily: "var(--font-fraunces), Georgia, serif",
+              fontWeight: 720,
+              fontSize: 28,
+              lineHeight: 1,
+              letterSpacing: "-0.04em",
+              color: "var(--text-primary)",
+            }}
+          >
+            c.
           </span>
-        </div>
+          <span className="hidden sm:flex flex-col leading-tight ml-1">
+            <span style={{ fontSize: 12, fontFamily: "var(--font-body)", fontWeight: 500, color: "var(--text-primary)" }}>Contrats Photo</span>
+            <span className="label-tag" style={{ fontSize: 9, color: "var(--text-muted)" }}>Studio Lucius · 2026</span>
+          </span>
+        </Link>
 
-        <div className="flex items-center gap-2">
-          <button onClick={onSwitchLang} className="btn btn-ghost" title="Langue contrat">
-            <Globe2 size={14} />
-            {draft.language.toUpperCase()}
+        <nav className="flex items-center gap-2 sm:gap-3">
+          <button onClick={onSwitchLang} className="hidden sm:inline-flex items-center gap-1.5" style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)", padding: "8px 12px", textTransform: "uppercase", letterSpacing: "0.08em" }} data-cursor="hover">
+            <Globe2 size={12} />
+            {draft.language}
           </button>
           <button
             onClick={() => {
@@ -63,17 +62,25 @@ export function TopBar({
                 URL.revokeObjectURL(url);
               } catch {}
             }}
-            className="btn btn-ghost"
-            title="Exporter le brouillon JSON"
+            className="hidden md:inline-flex items-center gap-1.5"
+            style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-secondary)", padding: "8px 12px", textTransform: "uppercase", letterSpacing: "0.08em" }}
+            data-cursor="hover"
+            title="Exporter brouillon"
           >
-            <Save size={14} />
+            <Save size={12} />
             Brouillon
           </button>
-          <button onClick={onResetDraft} className="btn btn-ghost" title="Réinitialiser">
+          <button
+            onClick={() => { if (confirm("Réinitialiser le contrat ?")) onResetDraft(); }}
+            className="inline-flex items-center"
+            style={{ padding: 8, color: "var(--text-muted)" }}
+            data-cursor="hover"
+            aria-label="Réinitialiser"
+          >
             <Trash2 size={14} />
           </button>
           <ThemeToggle />
-        </div>
+        </nav>
       </div>
     </header>
   );

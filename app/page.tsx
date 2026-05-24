@@ -186,59 +186,29 @@ function SectionHeader({
 }) {
   const total = 5;
   const pct = (completedCount / total) * 100;
+  const today = new Date().toLocaleDateString("fr-FR", { day: "2-digit", month: "long", year: "numeric" });
   return (
-    <div className="px-6 pt-5 pb-3 no-print" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
-      <div className="flex items-center justify-between flex-wrap gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <span
-            className="grid place-items-center shrink-0"
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 999,
-              border: "1px solid var(--border-strong)",
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              color: "var(--text-secondary)",
-              fontWeight: 500,
-              letterSpacing: "0.04em",
-            }}
-          >
-            {sec.num}
-          </span>
-          <div className="min-w-0">
-            <h1
-              className="editorial truncate"
-              style={{
-                fontFamily: "var(--font-fraunces), Georgia, serif",
-                fontWeight: 380,
-                fontSize: "clamp(1.5rem, 2.5vw, 2.4rem)",
-                lineHeight: 1.05,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              {sec.title}
-            </h1>
-            <p className="text-mute" style={{ fontSize: 12, fontFamily: "var(--font-mono)", letterSpacing: "0.06em" }}>
-              {sec.hint}
-            </p>
-          </div>
+    <div className="no-print" style={{ borderBottom: "1px solid var(--border-subtle)" }}>
+      <div className="px-6 pt-5 pb-2 flex items-center justify-between gap-4 flex-wrap" style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--text-muted)", letterSpacing: "0.08em" }}>
+        <div className="flex items-center gap-3">
+          <span style={{ textTransform: "uppercase" }}>Section {sec.num}</span>
+          <span style={{ opacity: 0.4 }}>·</span>
+          <span style={{ textTransform: "uppercase" }}>{today}</span>
+          <span style={{ opacity: 0.4 }}>·</span>
+          <span style={{ textTransform: "uppercase" }}>{sec.hint}</span>
         </div>
-        <div className="flex items-center gap-4">
-          <div style={{ width: 140, height: 2, background: "var(--border-subtle)", borderRadius: 999, overflow: "hidden" }}>
-            <div
-              style={{
-                height: "100%",
-                width: `${pct}%`,
-                background: "var(--accent)",
-                transition: "width 600ms cubic-bezier(.2,.7,.2,1)",
-              }}
-            />
+        <div className="flex items-center gap-3">
+          <div style={{ width: 100, height: 1, background: "var(--border-strong)", overflow: "hidden" }}>
+            <div style={{ height: "100%", width: `${pct}%`, background: "var(--text-primary)", transition: "width 600ms cubic-bezier(.2,.7,.2,1)" }} />
           </div>
-          <span className="label-tag" style={{ color: "var(--text-secondary)" }}>
-            {completedCount} / {total}
-          </span>
+          <span>{completedCount.toString().padStart(2, "0")} / {total.toString().padStart(2, "0")}</span>
         </div>
+      </div>
+
+      <div className="px-6 pb-6 pt-1 text-center">
+        <h1 className="display-massive-serif" style={{ color: "var(--text-primary)" }}>
+          {sec.title}
+        </h1>
       </div>
     </div>
   );
