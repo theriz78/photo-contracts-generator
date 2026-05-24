@@ -97,7 +97,7 @@ export default function Home() {
       <CustomCursor />
       <TopBar draft={draft} onResetDraft={reset} onSwitchLang={switchLang} />
 
-      <main ref={wrapRef} className="flex-1 min-h-0 relative">
+      <main ref={wrapRef} className="flex-1 min-h-0 relative no-print">
         <div className="grid lg:grid-cols-[1fr_minmax(0,540px)] h-full">
           {/* Stage */}
           <div className="flex flex-col min-h-0">
@@ -137,7 +137,7 @@ export default function Home() {
         {/* Mobile preview drawer toggle */}
         <button
           onClick={() => setPreviewOpen(true)}
-          className="lg:hidden fixed bottom-24 right-3 btn btn-ghost"
+          className="lg:hidden fixed bottom-24 right-3 btn btn-ghost no-print"
           style={{ zIndex: 25, padding: "10px 14px", background: "var(--bg-card)", boxShadow: "0 10px 24px -10px rgba(0,0,0,0.5)" }}
           aria-label="Voir aperçu"
         >
