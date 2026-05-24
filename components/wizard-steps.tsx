@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { Building2, User, Heart, Briefcase, Camera, Plane, Home, Sparkles, Baby, Trophy, Package, PawPrint, Palette, MoreHorizontal, Image as ImageIcon, Upload, Check, X } from "lucide-react";
+import { Building2, User, Heart, Briefcase, Camera, Plane, Home, Sparkles, Baby, Trophy, Package, PawPrint, Palette, MoreHorizontal, Image as ImageIcon, Upload, Check, X, Flame } from "lucide-react";
 import type { ContractDraft, ContractType, ContractNiche, ClauseToggle } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +15,7 @@ const NICHES: { id: ContractNiche; label: string; icon: typeof Heart }[] = [
   { id: "mariage", label: "Mariage", icon: Heart },
   { id: "corporate", label: "Corporate", icon: Briefcase },
   { id: "portrait", label: "Portrait / Famille", icon: User },
+  { id: "boudoir", label: "Boudoir", icon: Flame },
   { id: "mode", label: "Mode / Édito", icon: Sparkles },
   { id: "immobilier", label: "Immobilier", icon: Home },
   { id: "drone", label: "Drone / Aérien", icon: Plane },

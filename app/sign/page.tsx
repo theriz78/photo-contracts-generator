@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { PreviewPanel } from "@/components/preview-panel";
 import { SignaturePad } from "@/components/signature-pad";
+import { CustomCursor } from "@/components/custom-cursor";
 import type { ContractDraft } from "@/lib/types";
 import { decodeDraftFromHash, encodeDraftToHash, buildShareUrl } from "@/lib/share-encode";
 import { buildMailto } from "@/lib/mail-templates";
@@ -79,6 +80,7 @@ ${draft.client.fullName || ""}`;
 
   return (
     <div className="min-h-screen flex flex-col">
+      <CustomCursor />
       <header
         className="no-print sticky top-0 z-30"
         style={{ background: "color-mix(in oklab, var(--bg-base) 88%, transparent)", backdropFilter: "blur(14px)" }}

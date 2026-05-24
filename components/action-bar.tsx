@@ -16,24 +16,33 @@ export function ActionBar({ draft }: { draft: ContractDraft }) {
 
   return (
     <>
-      <div className="no-print sticky bottom-4 z-20 mx-auto px-4" style={{ maxWidth: 820 }}>
-        <div className="bento-card flex flex-wrap items-center justify-between gap-3" style={{ padding: 12 }}>
-          <div className="flex items-center gap-2 pl-2">
+      <div className="no-print action-dock">
+        <div
+          className="bento-card flex items-center justify-between gap-2"
+          style={{
+            padding: "10px 12px",
+            background: "color-mix(in oklab, var(--bg-card) 88%, transparent)",
+            backdropFilter: "blur(14px)",
+            borderColor: "var(--border-strong)",
+            boxShadow: "0 10px 40px -10px color-mix(in oklab, var(--bg-base) 80%, transparent)",
+          }}
+        >
+          <div className="flex items-center gap-2 pl-2 shrink-0">
             <Sparkles size={14} className="text-accent" />
-            <span className="text-sm text-soft">Actions contrat</span>
+            <span className="text-sm text-soft hidden sm:inline">Actions</span>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <button onClick={() => setMailOpen(true)} className="btn btn-ghost">
+          <div className="flex items-center gap-2 ml-auto">
+            <button onClick={() => setMailOpen(true)} className="btn btn-ghost" style={{ padding: "8px 12px", fontSize: 13 }}>
               <Mail size={14} />
-              Email
+              <span className="hidden sm:inline">Email</span>
             </button>
-            <button onClick={() => setSignOpen(true)} className="btn btn-ghost">
+            <button onClick={() => setSignOpen(true)} className="btn btn-ghost" style={{ padding: "8px 12px", fontSize: 13 }}>
               <Send size={14} />
-              Envoyer signature
+              <span className="hidden sm:inline">Signature</span>
             </button>
-            <button onClick={() => window.print()} className="btn btn-primary">
+            <button onClick={() => window.print()} className="btn btn-primary" style={{ padding: "8px 14px", fontSize: 13 }}>
               <Printer size={14} />
-              Exporter PDF
+              <span>PDF</span>
             </button>
           </div>
         </div>

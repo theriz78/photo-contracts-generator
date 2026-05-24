@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FileText, Globe2, Trash2, Save } from "lucide-react";
 import { ThemeToggle } from "./theme-toggle";
 import type { ContractDraft } from "@/lib/types";
@@ -26,7 +27,7 @@ export function TopBar({
     >
       <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: "var(--border-subtle)" }}>
         <div className="flex items-center gap-4" style={{ animation: "cp-fade-in 400ms ease both" }}>
-          <div className="flex items-center gap-3">
+          <Link href="/" className="flex items-center gap-3" data-cursor="hover">
             <div
               className="grid place-items-center"
               style={{ width: 36, height: 36, background: "var(--bg-card)", border: "1px solid var(--border-subtle)", borderRadius: 10 }}
@@ -34,12 +35,12 @@ export function TopBar({
               <FileText size={18} className="text-accent" />
             </div>
             <div className="flex flex-col leading-tight">
-              <span className="display-md">Contrats Photo</span>
-              <span className="label-eyebrow">Générateur FR · Micro-entrepreneur</span>
+              <span className="editorial" style={{ fontSize: 18, fontWeight: 380, letterSpacing: "-0.01em" }}>Contrats Photo</span>
+              <span className="label-tag" style={{ fontSize: 9, color: "var(--text-mute)" }}>Générateur FR · Studio Lucius</span>
             </div>
-          </div>
+          </Link>
 
-          <span className="pill ml-2">
+          <span className="pill ml-2 hidden sm:inline-flex">
             <span style={{ width: 6, height: 6, borderRadius: 999, background: "var(--accent)" }} />
             {stepLabel}
           </span>

@@ -8,6 +8,7 @@ export type ContractNiche =
   | "drone"
   | "evenementiel"
   | "portrait"
+  | "boudoir"
   | "scolaire"
   | "sport"
   | "produit"

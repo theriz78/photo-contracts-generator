@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export const config = {
-  matcher: ["/((?!_next|favicon.ico|robots.txt|lock|api/lock).*)"],
+  matcher: ["/generator/:path*", "/generator", "/sign/:path*", "/sign"],
 };
 
 async function sha256Hex(input: string): Promise<string> {
