@@ -342,6 +342,179 @@
     -webkit-backdrop-filter: blur(20px) saturate(140%);
   }
 
+  /* === SKEUMO PHOTO EQUIPMENT === */
+
+  /* Brass / camera body metal */
+  .skeumo-brass {
+    background:
+      linear-gradient(135deg, #b8a07a 0%, #d4bf95 25%, #8b734b 50%, #d4bf95 75%, #b8a07a 100%);
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.6),
+      inset 0 -1px 1px rgba(0,0,0,0.3),
+      0 2px 8px rgba(0,0,0,0.25);
+  }
+
+  .skeumo-steel {
+    background:
+      linear-gradient(135deg, #d8d8d8 0%, #f4f4f4 25%, #b0b0b0 50%, #f4f4f4 75%, #d8d8d8 100%);
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.8),
+      inset 0 -1px 1px rgba(0,0,0,0.2),
+      0 2px 6px rgba(0,0,0,0.18);
+  }
+
+  .skeumo-graphite {
+    background:
+      linear-gradient(135deg, #2a2a2a 0%, #4a4a4a 30%, #1a1a1a 50%, #4a4a4a 70%, #2a2a2a 100%);
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.15),
+      inset 0 -1px 2px rgba(0,0,0,0.6),
+      0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  /* Knurled metal dial edge — radial knurls */
+  .skeumo-knurled {
+    background-image:
+      repeating-conic-gradient(
+        from 0deg,
+        rgba(0,0,0,0.35) 0deg 2deg,
+        rgba(255,255,255,0.25) 2deg 4deg
+      ),
+      radial-gradient(circle at 30% 30%, #f0e9d6 0%, #b8a07a 40%, #6b5535 80%, #3a2a15 100%);
+    box-shadow:
+      inset 0 2px 2px rgba(255,255,255,0.5),
+      inset 0 -2px 4px rgba(0,0,0,0.5),
+      0 6px 16px rgba(0,0,0,0.3);
+  }
+
+  /* Leather grain pad */
+  .skeumo-leather {
+    background:
+      radial-gradient(ellipse at 30% 20%, #6b3e2c 0%, #4a2418 50%, #2a1408 100%);
+    background-image:
+      url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.65' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.4 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+      radial-gradient(ellipse at 30% 20%, #6b3e2c 0%, #4a2418 50%, #2a1408 100%);
+    background-blend-mode: overlay, normal;
+    box-shadow:
+      inset 0 2px 4px rgba(255,255,255,0.08),
+      inset 0 -3px 6px rgba(0,0,0,0.6),
+      inset 0 0 30px rgba(0,0,0,0.4),
+      0 4px 12px rgba(0,0,0,0.35);
+  }
+
+  /* Paper grain (aged vintage) */
+  .skeumo-paper {
+    background:
+      linear-gradient(135deg, #f4ecd8 0%, #ede2c4 100%);
+    background-image:
+      url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.4  0 0 0 0 0.25  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+      linear-gradient(135deg, #f4ecd8 0%, #ede2c4 100%);
+    background-blend-mode: multiply, normal;
+    box-shadow:
+      inset 0 0 22px rgba(110,80,40,0.18),
+      0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  /* Engraved screw — for camera nameplates */
+  .skeumo-screw {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ddd 0%, #888 60%, #444 100%);
+    box-shadow:
+      inset 0 1px 1px rgba(255,255,255,0.5),
+      inset 0 -1px 1px rgba(0,0,0,0.3),
+      0 1px 1px rgba(0,0,0,0.4);
+    position: relative;
+  }
+  .skeumo-screw::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    right: 15%;
+    height: 1px;
+    background: rgba(0,0,0,0.5);
+    transform: translateY(-0.5px) rotate(45deg);
+    transform-origin: center;
+  }
+
+  /* Lens focus ring track */
+  .skeumo-track {
+    background: linear-gradient(180deg, #1a1a1a 0%, #2a2a2a 50%, #1a1a1a 100%);
+    box-shadow:
+      inset 0 2px 3px rgba(0,0,0,0.6),
+      inset 0 -1px 1px rgba(255,255,255,0.1);
+  }
+
+  /* Embossed engraved text */
+  .skeumo-engraved {
+    color: #1a1208;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.4),
+      0 -1px 0 rgba(0,0,0,0.3);
+  }
+  .skeumo-engraved-light {
+    color: #f4ecd8;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.15),
+      0 -1px 1px rgba(0,0,0,0.7);
+  }
+
+  /* Odometer digit reel */
+  .skeumo-odometer {
+    display: inline-flex;
+    background: linear-gradient(180deg, #1a1208 0%, #2a1f10 100%);
+    border: 1px solid #0a0604;
+    border-radius: 4px;
+    padding: 2px;
+    box-shadow:
+      inset 0 2px 4px rgba(0,0,0,0.6),
+      inset 0 -1px 1px rgba(255,255,255,0.05),
+      0 1px 0 rgba(255,255,255,0.4);
+    overflow: hidden;
+  }
+  .skeumo-odometer-digit {
+    width: 28px;
+    height: 44px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #f4ecd8 0%, #ede2c4 50%, #d4c8a0 100%);
+    color: #1a1208;
+    font-family: var(--font-mono);
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    border-radius: 2px;
+    margin: 0 1px;
+    box-shadow:
+      inset 0 4px 6px rgba(0,0,0,0.18),
+      inset 0 -4px 6px rgba(0,0,0,0.12);
+  }
+  .skeumo-odometer-strip {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 360ms cubic-bezier(.4,1.4,.5,1);
+    will-change: transform;
+  }
+  .skeumo-odometer-strip span {
+    height: 44px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 100%;
+  }
+
+  /* Card stack 3D */
+  .skeumo-card-stack { perspective: 1000px; }
+  .skeumo-card-3d {
+    transform-style: preserve-3d;
+    transition: transform 320ms cubic-bezier(.2,.7,.2,1), box-shadow 320ms;
+  }
+
   /* Custom cursor */
   .cp-cursor-dot,
   .cp-cursor-ring {
