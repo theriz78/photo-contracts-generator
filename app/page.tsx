@@ -18,6 +18,7 @@ import {
   StepClauses,
 } from "@/components/wizard-steps";
 import { CustomCursor } from "@/components/custom-cursor";
+import { TipsToaster } from "@/components/tips-toaster";
 import { useDraft } from "@/lib/draft-store";
 import { useStudio, isConfigured } from "@/lib/studio-store";
 import type { ContractDraft, Photographer } from "@/lib/types";
@@ -235,6 +236,7 @@ export default function Home() {
       </div>
 
       <ActionBar draft={draft} />
+      <TipsToaster draft={draft} />
 
       {onboardingOpen && (
         <OnboardingModal

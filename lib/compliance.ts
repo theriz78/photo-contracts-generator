@@ -12,19 +12,44 @@ export interface ComplianceCheck {
 
 export function runCompliance(d: ContractDraft): ComplianceCheck[] {
   const checks: ComplianceCheck[] = [];
+  const isOccasionnel = d.photographer.status === "occasionnel";
 
-  const sirenOk = d.photographer.includeSiret && /^\d{9}(\d{5})?$/.test(d.photographer.siret.replace(/\s+/g, ""));
+  // Status awareness check
   checks.push({
-    id: "siret",
-    label: "SIRET valide (14 chiffres)",
-    status: d.photographer.includeSiret ? (sirenOk ? "pass" : "fail") : "warn",
-    detail: d.photographer.includeSiret
-      ? sirenOk
-        ? "Format SIRET correct (9 SIREN + 5 NIC)."
-        : "SIRET incomplet ou format invalide. Obligatoire pour facturation."
-      : "SIRET désactivé. Recommandé pour facturation et mentions légales B2B.",
-    ref: "Art. R. 123-237 Code commerce",
+    id: "status",
+    label: isOccasionnel ? "Statut : Photographe occasionnel" : "Statut : Photographe pro",
+    status: "pass",
+    detail: isOccasionnel
+      ? "Vente occasionnelle. Plafond 3 000 €/an avant inscription URSSAF artiste-auteur (guichet unique avril 2026)."
+      : "Micro-entreprise, artiste-auteur ou société. Facturation B2B/B2C standard.",
+    ref: isOccasionnel ? "URSSAF artistes-auteurs · 01/04/2026" : "Art. 293 B CGI",
   });
+
+  if (isOccasionnel && d.type === "b2b") {
+    checks.push({
+      id: "occasionnel-b2b",
+      label: "B2B incompatible statut occasionnel",
+      status: "warn",
+      detail:
+        "Le B2B exige facture avec SIRET, mentions L.441-10 et inscription URSSAF. Soit passe en statut pro, soit reste en B2C/TFP.",
+      ref: "Art. R.123-237 Code commerce + Art. L.441-10",
+    });
+  }
+
+  if (!isOccasionnel) {
+    const sirenOk = d.photographer.includeSiret && /^\d{9}(\d{5})?$/.test(d.photographer.siret.replace(/\s+/g, ""));
+    checks.push({
+      id: "siret",
+      label: "SIRET valide (14 chiffres)",
+      status: d.photographer.includeSiret ? (sirenOk ? "pass" : "fail") : "warn",
+      detail: d.photographer.includeSiret
+        ? sirenOk
+          ? "Format SIRET correct (9 SIREN + 5 NIC)."
+          : "SIRET incomplet ou format invalide. Obligatoire pour facturation pro."
+        : "SIRET désactivé. Pour statut pro, recommandé pour mentions légales.",
+      ref: "Art. R. 123-237 Code commerce",
+    });
+  }
 
   const cessionRights = d.cession.rights.length >= 1;
   const cessionDests = d.cession.destinations.length >= 1;
@@ -39,6 +64,17 @@ export function runCompliance(d: ContractDraft): ComplianceCheck[] {
       : "Au moins un élément manquant (droits / destinations / supports / territoire / durée). Clause générique = nulle.",
     ref: "Art. L.131-3 CPI",
   });
+
+  if (isOccasionnel && d.cession.destinations.includes("commerciale")) {
+    checks.push({
+      id: "occasionnel-commercial",
+      label: "Cession commerciale + statut occasionnel",
+      status: "warn",
+      detail:
+        "Vente occasionnelle avec cession commerciale = revenu régulier probable. Risque requalification URSSAF en activité habituelle.",
+      ref: "Cass. soc. notion d'activité habituelle",
+    });
+  }
 
   checks.push({
     id: "credit-mention",
@@ -60,7 +96,7 @@ export function runCompliance(d: ContractDraft): ComplianceCheck[] {
     ref: "Art. 9 Code civil + RGPD",
   });
 
-  if (d.type === "b2b") {
+  if (d.type === "b2b" && !isOccasionnel) {
     const hasLatePenalties = d.customClauses.some((c) => c.id === "penalites-retard" && c.enabled);
     checks.push({
       id: "b2b-penalties",
@@ -113,17 +149,52 @@ export function runCompliance(d: ContractDraft): ComplianceCheck[] {
         : "Sans contreparties réelles et exigibles, le contrat peut être requalifié en donation = nul sans acte notarié.",
       ref: "Art. 931 Code civil",
     });
+
+    if (d.cession.destinations.includes("commerciale")) {
+      checks.push({
+        id: "tfp-commercial-conflict",
+        label: "TFP avec destination commerciale",
+        status: "fail",
+        detail:
+          "TFP = collaboration non-commerciale. Une destination commerciale transforme le contrat en commande rémunérée et invalide la parade anti-donation.",
+        ref: "Art. 931 Code civil + L.131-3 CPI",
+      });
+    }
   }
 
-  checks.push({
-    id: "tva-mention",
-    label: "Mention TVA micro-entrepreneur",
-    status: d.photographer.tvaExemption ? "pass" : "warn",
-    detail: d.photographer.tvaExemption
-      ? "Mention 293 B CGI active (bascule L. 223 CIBS au 01/09/2026 à anticiper)."
-      : "Si micro-entrepreneur franchise TVA, mention obligatoire sur factures/contrats.",
-    ref: "Art. 293 B CGI / L. 223 CIBS",
-  });
+  if (!isOccasionnel) {
+    checks.push({
+      id: "tva-mention",
+      label: "Mention TVA micro-entrepreneur",
+      status: d.photographer.tvaExemption ? "pass" : "warn",
+      detail: d.photographer.tvaExemption
+        ? "Mention 293 B CGI active (bascule L. 223 CIBS au 01/09/2026 à anticiper)."
+        : "Si micro-entrepreneur franchise TVA, mention obligatoire sur factures/contrats.",
+      ref: "Art. 293 B CGI / L. 223 CIBS",
+    });
+  }
+
+  if (d.pricing && d.pricing.amount > 0 && !isOccasionnel) {
+    if (d.pricing.deposit.type === "percent" && d.pricing.deposit.value < 20) {
+      checks.push({
+        id: "low-deposit",
+        label: "Acompte inférieur à 20 %",
+        status: "warn",
+        detail: "Acompte faible = exposition au risque d'annulation tardive sans rémunération. Recommandé 30-50 %.",
+        ref: "Pratique professionnelle",
+      });
+    }
+  }
+
+  if (isOccasionnel && d.pricing && d.pricing.amount > 1500) {
+    checks.push({
+      id: "occasionnel-plafond",
+      label: "Montant proche du plafond annuel occasionnel",
+      status: "warn",
+      detail: `Cette prestation à ${d.pricing.amount.toLocaleString("fr-FR")} € + autres contrats ne doivent pas dépasser 3 000 €/an cumulés sans inscription URSSAF.`,
+      ref: "URSSAF artistes-auteurs",
+    });
+  }
 
   const minorRisk = d.niche === "scolaire" || d.niche === "portrait" || d.niche === "mariage";
   if (minorRisk) {
